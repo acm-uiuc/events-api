@@ -31,6 +31,6 @@ app.get('/heartbeat', (req: Request, res: Response) => {
   res.send("Up.");
 })
 
-app.listen(process.env.PORT, () => {
-  console.log(`Server running at http://localhost:${process.env.PORT}`);
+app.listen(process.env.PORT || 8080, () => {
+  console.log(`Server running at http://localhost:${process.env.PORT || 8080}`);
 });
