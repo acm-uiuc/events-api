@@ -31,6 +31,7 @@
     "clean": "gts clean",
     "compile": "tsc",
     "fix": "gts fix",
+    "container-start": "node build/src/index.js",
     "pretest": "yarn run compile",
     "posttest": "yarn run lint"
   }
