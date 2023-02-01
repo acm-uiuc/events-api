@@ -1,45 +1,51 @@
-import express = require('express');
 import { Router, Request, Response } from "express";
-import { EventsRequest } from './EventsRequest';
+import passport = require('passport');
+import { bearerStrategy } from './auth/AADBearer';
+import { permissions } from './auth/middleware';
+import AADTokenInfo from "./auth/AADTokenInfo";
 
 const APIRouter = Router()
 
-const checkToken = (req: EventsRequest, res: Response, next: any) => {
-    const header = req.headers['authorization'];
-    try {
-        if (typeof header !== 'undefined') {
-            const bearer = header.split(' ');
-            const token = bearer[1];
-            req.token = token;
-            return next();
-        } else {
-            throw new Error("Unauthorized");
+APIRouter.use(passport.initialize());
+passport.use(bearerStrategy);
+APIRouter.use('/private/', (req: Request, res: Response, next: any) => {
+    passport.authenticate('oauth-bearer', {
+        session: false
+    }, (err, user, info) => {
+        if (err) {
+            return res.status(401).json({success: false, error: err.message})
         }
-    } catch {
-        return res.status(403).send("Not authorized.");
-    }
-
-};
-
-APIRouter.use(checkToken as express.RequestHandler);
-
-APIRouter.get('/ping', (req: Request, res: Response) => {
-    return res.send("Authenticated.");
+        if (!user) {
+            console.warn("Error in auth: ", info);
+            return res.status(401).json({ error: 'Unauthorized' });
+        }
+        if (info) {
+            const user: AADTokenInfo = info;
+            req.authInfo = user;
+            return next();
+        }
+    })(req, res, next);
 })
 
-APIRouter.post('/events/create', (req: Request, res: Response) => {
+APIRouter.use('/private/', permissions.either.write)
+
+APIRouter.get('/private/ping', (req: Request, res: Response) => {
+    return res.json(req.authInfo);
+})
+
+APIRouter.post('/private/events/create', (req: Request, res: Response) => {
     res.send("Not yet implemented.");
 })
 
-APIRouter.get('/events/all', (req: Request, res: Response) => {
+APIRouter.get('/public/events/all', (req: Request, res: Response) => {
     res.send("Not yet implemented.");
 })
 
-APIRouter.get('/events/:id', (req: Request, res: Response) => {
+APIRouter.get('/public/events/:id', (req: Request, res: Response) => {
     res.send("Not yet implemented.");
 })
 
-APIRouter.delete('/events/:id', (req: Request, res: Response) => {
+APIRouter.delete('/private/events/:id', (req: Request, res: Response) => {
     res.send("Not yet implemented.");
 })
 
