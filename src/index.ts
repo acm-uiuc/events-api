@@ -1,20 +1,17 @@
-import * as dotenv from 'dotenv'
-dotenv.config()
+import * as dotenv from 'dotenv';
+dotenv.config();
 import express = require('express');
-import { Request, Response } from "express";
-import mongoose = require('mongoose');
+import {Request, Response} from 'express';
 
 const app = express();
 import {APIRouter} from './api';
 
-// mongoose.connect(process.env.MONGO_URI!);
 
 app.use(express.json());
 
-
 app.get('/heartbeat', (req: Request, res: Response) => {
-  return res.send("Up.");
-})
+  return res.send('Up.');
+});
 
 app.use('/api', APIRouter);
 
