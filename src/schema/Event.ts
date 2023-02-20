@@ -18,7 +18,7 @@ const EventSchema = new Schema({
         required: true
     },
     locationLink: String,
-    repeats: String
+    repeats: String // daily, weekly, monthly
 })
 
 export default EventSchema;

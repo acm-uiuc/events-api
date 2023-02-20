@@ -12,7 +12,7 @@ const authConfig = {
     validateIssuer: true,
     passReqToCallback: true,
     loggingLevel: 'info',
-    loggingNoPII: true,
+    loggingNoPII: false,
   },
   permssions: {
     write: 'Events.Write.All',
