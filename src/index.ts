@@ -9,7 +9,9 @@ import {APIRouter} from './api';
 
 app.use(express.json());
 
-app.get('/heartbeat', (req: Request, res: Response) => {
+// This endpoint returns Up when the server is up
+// document this function with swagger
+app.get('/healthz', (req: Request, res: Response) => {
   return res.send('Up.');
 });
 
