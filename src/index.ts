@@ -5,6 +5,7 @@ import {Request, Response} from 'express';
 
 const app = express();
 import {APIRouter} from './api';
+import {membersRouter} from './members';
 
 
 app.use(express.json());
@@ -14,6 +15,8 @@ app.get('/heartbeat', (req: Request, res: Response) => {
 });
 
 app.use('/api', APIRouter);
+
+app.use('/members', membersRouter);
 
 app.listen(process.env.PORT || 8080, () => {
   console.log(`Server running at http://localhost:${process.env.PORT || 8080}`);
