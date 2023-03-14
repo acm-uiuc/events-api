@@ -4,7 +4,8 @@ import express = require('express');
 import {Request, Response} from 'express';
 
 const app = express();
-import {APIRouter, membersRouter} from './api';
+import {APIRouter} from './api';
+import {membersRouter} from './members';
 
 
 app.use(express.json());
