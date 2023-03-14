@@ -65,7 +65,7 @@ export class GraphAPI {
    * 
    * @this {GraphAPI}
    * @param {string} netID: The Net ID of the organizer to see if the event organizer is a member
-   * @returns {string} An object containing the NetID and whether or not the organizer is found 
+   * @returns {Record<string, string>} An object containing the NetID and whether or not the organizer is found 
    */
   async isPaidMember(netID: string) : Promise<Object> {
     let timeDiff = new Date().getTime() - this.activationTime;
@@ -99,7 +99,7 @@ export class GraphAPI {
       }
     })
     .catch(function (error) {
-      console.log(error);
+      found_data.isPaidMember = false; // this should already be true, but just forcing it.
     });
 
     return found_data;

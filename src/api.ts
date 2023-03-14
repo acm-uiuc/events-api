@@ -102,7 +102,6 @@ APIRouter.patch('/private/events/:id', (req: Request, res: Response) => {
 
 APIRouter.get('/members/checkStatus/:netID', async (req: Request, res: Response) => {
     var memberStatus = await graphAPI.isPaidMember(req.params.netID);
-    console.log(memberStatus);
     return res.send(memberStatus);
 })
 
