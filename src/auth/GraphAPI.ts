@@ -39,7 +39,7 @@ export class GraphAPI {
     var config = {
       method: 'post',
     maxBodyLength: Infinity,
-      url: 'https://login.microsoftonline.com/c8d9148f-9a59-4db3-827d-42ea0c2b6e2e/oauth2/v2.0/token?=&=&=&=',
+      url: TOKEN_URL,
       headers: { 
         'Content-Type': 'application/x-www-form-urlencoded', 
         'Cookie': 'fpc=AsUy_e9y-_NJl78_lG1B0fFKX7MIAQAAAJToodsOAAAA; stsservicecookie=estsfd; x-ms-gateway-slice=estsfd'
@@ -77,7 +77,7 @@ export class GraphAPI {
     var config = {
       method: 'get',
     maxBodyLength: Infinity,
-      url: `https://graph.microsoft.com/v1.0/groups/172fd9ee-69f0-4384-9786-41ff1a43cf8e/members/microsoft.graph.user?$search="userPrincipalName:${netID}"`,
+      url: `${MEMBERS_URL}?$search="userPrincipalName:${netID}"`,
       headers: { 
         'Authorization': `Bearer ${this.token.access_token}`, 
         'Content-type': 'application/json', 

@@ -9,7 +9,8 @@ import * as mongoose from 'mongoose';
 import {json as jsonParser} from 'express';
 import EventSchema from "./schema/Event";
 import {GraphAPI} from "./auth/GraphAPI";
-const APIRouter = Router()
+const APIRouter = Router();
+const membersRouter = Router();
 
 mongoose.connect(process.env.MONGO_URI!);
 const db = mongoose.connection;
@@ -100,9 +101,9 @@ APIRouter.patch('/private/events/:id', (req: Request, res: Response) => {
     })
 })
 
-APIRouter.get('/members/checkStatus/:netID', async (req: Request, res: Response) => {
+membersRouter.get('/checkStatus/:netID', async (req: Request, res: Response) => {
     var memberStatus = await graphAPI.isPaidMember(req.params.netID);
     return res.send(memberStatus);
 })
 
-export {APIRouter};
+export {APIRouter, membersRouter};
