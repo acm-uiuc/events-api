@@ -89,7 +89,6 @@ export class GraphAPI {
 
     await axios(config)
     .then(function (response) {
-      console.log(JSON.stringify(response.data));
       for (let i = 0; i < response.data.value.length; i++) {
         let userPrincipalName = netID + "_illinois.edu#EXT#@acmillinois.onmicrosoft.com";
         if (response.data.value[i].userPrincipalName == userPrincipalName) {
