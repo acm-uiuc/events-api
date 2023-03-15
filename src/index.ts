@@ -5,7 +5,7 @@ import {Request, Response} from 'express';
 const swaggerUi = require('swagger-ui-express');
 const swaggerJsDoc = require('swagger-jsdoc');
 const app = express();
-
+const pjson = require('../package.json')
 import {APIRouter} from './api';
 
 app.use(express.json());
@@ -32,17 +32,17 @@ const options = {
   definition: {
     openapi: '3.0.0',
     info: {
-      title: 'Events API',
-      version: '1.0.0',
+      title: pjson.description,
+      version: pjson.version,
       description: 'API for ACM Events',
     },
     servers: [
       {
-        url: 'http://localhost:8080'
-      },
-      {
         url: 'events-api.rke.acm.illinois.edu',
         description: 'Production Server'
+      },
+      {
+        url: 'http://localhost:8080'
       }
     ],
   },
