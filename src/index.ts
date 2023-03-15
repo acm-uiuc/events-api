@@ -28,7 +28,6 @@ app.get('/healthz', (req: Request, res: Response) => {
   return res.send('Up.');
 });
 
-app.use('/api', APIRouter);
 const options = {
   definition: {
     openapi: '3.0.0',
@@ -56,9 +55,11 @@ const options = {
 };
 
 const swaggerDocs = swaggerJsDoc(options);
-app.use('/', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 app.use('/members', membersRouter);
+app.use('/api', APIRouter);
 
+
+app.use('/', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 app.listen(process.env.PORT || 8080, () => {
   console.log(`Server running at http://localhost:${process.env.PORT || 8080}`);
 });
