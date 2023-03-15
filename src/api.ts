@@ -8,7 +8,7 @@ import AADTokenInfo from "./auth/AADTokenInfo";
 import * as mongoose from 'mongoose';
 import {json as jsonParser} from 'express';
 import EventSchema from "./schema/Event";
-const APIRouter = Router()
+const APIRouter = Router();
 
 mongoose.connect(process.env.MONGO_URI!);
 const db = mongoose.connection;
@@ -97,5 +97,7 @@ APIRouter.patch('/private/events/:id', (req: Request, res: Response) => {
         return res.send({success: true, message: `Updated ${req.params.id}.`})
     })
 })
+
+
 
 export {APIRouter};

@@ -7,6 +7,7 @@ const swaggerJsDoc = require('swagger-jsdoc');
 const app = express();
 const pjson = require('../package.json')
 import {APIRouter} from './api';
+import {membersRouter} from './members';
 
 app.use(express.json());
 
@@ -56,6 +57,8 @@ const options = {
 
 const swaggerDocs = swaggerJsDoc(options);
 app.use('/', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
+app.use('/members', membersRouter);
+
 app.listen(process.env.PORT || 8080, () => {
   console.log(`Server running at http://localhost:${process.env.PORT || 8080}`);
 });
