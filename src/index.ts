@@ -27,6 +27,9 @@ app.use(express.json());
 app.get('/healthz', (req: Request, res: Response) => {
   return res.send('Up.');
 });
+app.get('/', (req: Request, res: Response) => {
+  return res.redirect('/docs/');
+});
 
 const options = {
   definition: {
@@ -59,7 +62,7 @@ app.use('/members', membersRouter);
 app.use('/api', APIRouter);
 
 
-app.use('/', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
+app.use('/docs/', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 app.listen(process.env.PORT || 8080, () => {
   console.log(`Server running at http://localhost:${process.env.PORT || 8080}`);
 });
