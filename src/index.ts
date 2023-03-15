@@ -8,7 +8,6 @@ const app = express();
 
 import {APIRouter} from './api';
 
-
 app.use(express.json());
 
 /**
@@ -19,8 +18,10 @@ app.use(express.json());
  *   responses:
  *    '200':
  *      description: A successful response. Server is up.
- *    '500':
+ *    '4XX-5XX':
  *      description: A failure response. Server is down.
+ *   tags:
+ *   - Unauthenticated Routes
  */
 app.get('/healthz', (req: Request, res: Response) => {
   return res.send('Up.');
@@ -37,8 +38,12 @@ const options = {
     },
     servers: [
       {
-        url: 'http://localhost:8080',
+        url: 'http://localhost:8080'
       },
+      {
+        url: 'events-api.rke.acm.illinois.edu',
+        description: 'Production Server'
+      }
     ],
   },
   apis: [
