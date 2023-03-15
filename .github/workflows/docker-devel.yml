@@ -1,4 +1,4 @@
-name: 'AMD64/ARM64 image builder'
+name: 'main AMD64/ARM64 image builder'
 
 on:  
   push:
