@@ -1,6 +1,6 @@
 {
   "name": "acm-events",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "ACM Events API",
   "main": "index.js",
   "repository": {
@@ -39,7 +39,7 @@
     "start": "ts-node-dev --respawn --transpile-only src/index.ts",
     "lint": "gts lint",
     "clean": "gts clean",
-    "compile": "tsc",
+    "compile": "tsc && cp package.json build/",
     "fix": "gts fix",
     "container-start": "node build/src/index.js",
     "pretest": "yarn run compile",
