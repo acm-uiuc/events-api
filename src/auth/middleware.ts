@@ -1,10 +1,10 @@
-import {Request, Response} from 'express';
+import {Request, Response, NextFunction} from 'express';
 import {authConfig} from './config';
 import AADTokenInfo from './AADTokenInfo';
 
-const either_write_all = (req: Request, res: Response, next: any) => {
+const either_write_all = (req: Request, res: Response, next: NextFunction) => {
   const user: AADTokenInfo = req.authInfo!;
-  if (user.scp == authConfig.permssions.write) {
+  if (user.scp === authConfig.permssions.write) {
     return next();
   }
   return res.status(401).send('Invalid application caller.');

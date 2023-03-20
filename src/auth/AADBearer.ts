@@ -11,7 +11,7 @@ const bearerStrategy = new passportAzureAd.BearerStrategy(
     passReqToCallback: authConfig.settings.passReqToCallback,
     loggingNoPII: authConfig.settings.loggingNoPII,
   },
-  (req, token, done) => {
+  (_req, token, done) => {
     /**
      * Below you can do extended token validation and check for additional claims, such as:
      * - check if the caller's tenant is in the allowed tenants list via the 'tid' claim (for multi-tenant applications)
@@ -38,7 +38,10 @@ const bearerStrategy = new passportAzureAd.BearerStrategy(
      * Access tokens that have neither the 'scp' (for delegated permissions) nor
      * 'roles' (for application permissions) claim are not to be honored.
      */
-    if (!token.hasOwnProperty('scp') && !token.hasOwnProperty('roles')) {
+    if (
+      !Object.prototype.hasOwnProperty.call(token, 'scp') &&
+      !Object.prototype.hasOwnProperty.call(token, 'roles')
+    ) {
       return done(
         new Error('Unauthorized'),
         null,
