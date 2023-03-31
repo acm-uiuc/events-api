@@ -11,11 +11,20 @@ type Token = {
 };
 
 export class GraphAPI {
-  clientId: string;
-  clientSecret: string;
-  token: Token;
-  activationTime: number;
-
+  /** @private */
+  private clientId: string;
+  /** @private */
+  private clientSecret: string;
+  /** @private */
+  private token: Token;
+  /** @private */
+  private activationTime: number;
+ 
+  /**
+   * @constructor
+   * @param client -- Azure Graph API Client ID.
+   * @param secret -- Azure Graph API Client Secret.
+   */
   constructor(client: string, secret: string) {
     this.clientId = client;
     this.clientSecret = secret;
@@ -26,8 +35,9 @@ export class GraphAPI {
   }
 
   /**
-   * @this {GraphAPI}
    * This creates a new access token, and then sets the token member variable's `access_token` and token expiry time to the gathered token.
+   * 
+   * @this {GraphAPI}
    */
   async createNewToken() {
     const data = qs.stringify({
@@ -61,11 +71,11 @@ export class GraphAPI {
   }
 
   /**
-   * Checks whether organizer is found in the AAD, and returns whether or not it is.
+   * Checks whether a given member is found in the AAD, and returns whether or not it is.
    *
    * @this {GraphAPI}
-   * @param {string} netID: The Net ID of the organizer to see if the event organizer is a member
-   * @returns {Record<string, string>} An object containing the NetID and whether or not the organizer is found
+   * @param {string} netID: The UIUC Network ID of the organizer to see if the event organizer is a member
+   * @returns {Record<string, string>} An object containing the NetID and whether or not the organizer is found 
    */
   async isPaidMember(netID: string): Promise<Object> {
     const timeDiff = new Date().getTime() - this.activationTime;
