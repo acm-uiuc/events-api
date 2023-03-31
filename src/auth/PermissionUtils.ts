@@ -3,7 +3,7 @@
  * @param {Object} accessTokenPayload
  * @returns {boolean}
  */
-const isAppOnlyToken = (accessTokenPayload: Record<any, any>) => {
+const isAppOnlyToken = (accessTokenPayload: Record<any, any>): boolean => {
   /**
    * An access token issued by Azure AD will have at least one of the two claims. Access tokens
    * issued to a user will have the 'scp' claim. Access tokens issued to an application will have
@@ -14,12 +14,12 @@ const isAppOnlyToken = (accessTokenPayload: Record<any, any>) => {
    * more easily, we recommend enabling the optional claim 'idtyp'. For more information, see:
    * https://docs.microsoft.com/azure/active-directory/develop/access-tokens#user-and-application-tokens
    */
-  if (!accessTokenPayload.hasOwnProperty('idtyp')) {
-    if (accessTokenPayload.hasOwnProperty('scp')) {
+  if (!Object.prototype.hasOwnProperty.call(accessTokenPayload, 'idtyp')) {
+    if (Object.prototype.hasOwnProperty.call(accessTokenPayload, 'scp')) {
       return false;
     } else if (
-      !accessTokenPayload.hasOwnProperty('scp') &&
-      accessTokenPayload.hasOwnProperty('roles')
+      !Object.prototype.hasOwnProperty.call(accessTokenPayload, 'scp') &&
+      Object.prototype.hasOwnProperty.call(accessTokenPayload, 'roles')
     ) {
       return true;
     }
@@ -37,13 +37,13 @@ const isAppOnlyToken = (accessTokenPayload: Record<any, any>) => {
 const hasRequiredDelegatedPermissions = (
   accessTokenPayload: Record<any, any>,
   requiredPermission: String[]
-) => {
+): boolean => {
   const normalizedRequiredPermissions = requiredPermission.map(permission =>
     permission.toUpperCase()
   );
 
   if (
-    accessTokenPayload.hasOwnProperty('scp') &&
+    Object.prototype.hasOwnProperty.call(accessTokenPayload, 'scp') &&
     accessTokenPayload.scp
       .split(' ')
       .some((claim: String) =>
@@ -65,13 +65,13 @@ const hasRequiredDelegatedPermissions = (
 const hasRequiredApplicationPermissions = (
   accessTokenPayload: Record<any, any>,
   requiredPermission: String[]
-) => {
+): boolean => {
   const normalizedRequiredPermissions = requiredPermission.map(
     (permission: String) => permission.toUpperCase()
   );
 
   if (
-    accessTokenPayload.hasOwnProperty('roles') &&
+    Object.prototype.hasOwnProperty.call(accessTokenPayload, 'roles') &&
     accessTokenPayload.roles.some((claim: String) =>
       normalizedRequiredPermissions.includes(claim.toUpperCase())
     )
