@@ -2,13 +2,13 @@
   "extends": "./node_modules/gts/tsconfig-google.json",
   "esModuleInterop": true,
   "allowSyntheticDefaultImports": true,
-  "resolveJsonModule": true,
   "compilerOptions": {
+    "resolveJsonModule": true,
     "rootDir": ".",
     "outDir": "build"
   },
   "include": [
     "src/**/*.ts",
     "test/**/*.ts"
-  ],
+  ]
 }
