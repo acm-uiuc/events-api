@@ -1,0 +1,21 @@
+{
+  "name": "rest-api-testing",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "chai": "^4.3.7",
+    "chai-http": "^4.3.0",
+    "mocha": "^10.2.0",
+    "test": "^3.3.0"
+  },
+  "devDependencies": {
+    "@types/chai-http": "^4.2.0"
+  }
+}
